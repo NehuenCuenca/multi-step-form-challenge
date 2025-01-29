@@ -1,0 +1,43 @@
+/* RESETS */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+a { 
+  color:inherit;
+  text-decoration: none;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+ul,ol { 
+  list-style-type: none;
+  padding: 0
+}
+
+html {
+  font-family: var(--default-font, 'Tahoma');
+  scroll-behavior: smooth;
+}
