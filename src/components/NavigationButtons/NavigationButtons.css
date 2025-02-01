@@ -1,0 +1,22 @@
+.navigation-buttons{
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.navigation-buttons__button{
+    font: normal normal 500 1.2rem 'UbuntuMedium', sans-serif;
+    padding: 1rem 1.2rem;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+.navigation-buttons__button_back{
+    color: var(--CoolGray);
+}
+.navigation-buttons__button_forward{
+    color: var(--White);
+    background-color: var(--MarineBlue);
+}
+.navigation-buttons__button_confirm{
+    color: var(--White);
+    background-color: var(--PurplishBlue);
+}

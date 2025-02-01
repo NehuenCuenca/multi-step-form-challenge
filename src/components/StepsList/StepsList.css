@@ -1,0 +1,36 @@
+.steps-list{
+    background-image: url('../../../starter_files/assets/images/bg-sidebar-mobile.svg');
+    background-size: cover;
+    min-height: 25dvh;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.step-item{}
+.step-item__number{
+    padding: 1.2rem;
+    background-color: transparent;
+    border-radius: 100%;
+    font: normal normal 700 1.3rem 'UbuntuBold', sans-serif;
+    color: var(--White);
+    border: 1px solid var(--White);
+}
+.step-item__number_active{
+    background-color: var(--LightBlue);
+    color: var(--MarineBlue);
+    border: inherit;
+}
+.step-item__step-indicator{
+    text-transform: uppercase;
+    font: normal normal 400 1.1rem 'UbuntuRegular', sans-serif;
+    color: var(--PastelBlue);
+    display: none;
+}
+.step-item__title{
+    text-transform: uppercase;
+    font: normal normal 700 1.2rem 'UbuntuBold', sans-serif;
+    color: var(--White);
+    display: none;
+}
