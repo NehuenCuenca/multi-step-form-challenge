@@ -1,3 +1,22 @@
+@font-face {
+  font-family: 'UbuntuBold';
+  src: url('../public/fonts/Ubuntu-Bold.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'UbuntuMedium';
+  src: url('../public/fonts/Ubuntu-Medium.ttf') format('ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'UbuntuRegular';
+  src: url('../public/fonts/Ubuntu-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* RESETS */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -34,10 +53,28 @@ button{
 
 ul,ol { 
   list-style-type: none;
-  padding: 0
+  padding: 0;
 }
 
 html {
-  font-family: var(--default-font, 'Tahoma');
+  font-family: var(--default-font, var(--fallback-font));
   scroll-behavior: smooth;
+}
+
+:root{
+  /* PRIMARY */
+  --MarineBlue: hsl(213, 96%, 18%);
+  --PurplishBlue: hsl(243, 100%, 62%);
+  --PastelBlue: hsl(228, 100%, 84%);
+  --LightBlue: hsl(206, 94%, 87%);
+  --StrawberryRed: hsl(354, 84%, 57%);
+  /* NEUTRAL */
+  --CoolGray: hsl(231, 11%, 63%);
+  --LightGray: hsl(229, 24%, 87%);
+  --Magnolia: hsl(217, 100%, 97%);
+  --Alabaster: hsl(231, 100%, 99%);
+  --White: hsl(0, 0%, 100%);
+
+  --default-font: 'UbuntuMedium', sans-serif;
+  --fallback-font: 'Tahoma', sans-serif;
 }
