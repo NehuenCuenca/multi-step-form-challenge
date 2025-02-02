@@ -1,0 +1,22 @@
+.step-container{
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+.step-title{
+    font: normal normal 700 1.5rem 'UbuntuBold', sans-serif;
+    color: var(--MarineBlue);
+}
+.step-sub-title{
+    font: normal normal 400 1.2rem 'UbuntuRegular', sans-serif;
+    color: var(--CoolGray);
+}
+
+.step-container_hidden{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    height: 0;
+    pointer-events: none;
+}

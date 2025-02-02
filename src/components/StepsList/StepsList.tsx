@@ -3,13 +3,16 @@ import "./StepsList.css";
 
 interface StepsListProps{
   shortenedSteps: Array<ShortenedStep>;
+  currentStep: number;
 }
 
-const StepsList = ({shortenedSteps}: StepsListProps) => {
+const StepsList = ({shortenedSteps, currentStep}: StepsListProps) => {
+  const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
+
   return (
     <ul className="steps-list">
       { shortenedSteps.map((({listTitle}, index) => <li className="step-item" key={index}>
-        <span className="step-item__number">{index+1}</span>
+        <span className={`step-item__number ${(isCurrentStep(index) ? 'step-item__number_active' : '')}`}>{index+1}</span>
         <span className="step-item__step-indicator">step {index+1}</span>
         <span className="step-item__title">{listTitle}</span>
       </li>)) }

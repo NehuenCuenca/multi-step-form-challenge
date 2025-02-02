@@ -1,7 +1,7 @@
 .navigation-buttons{
     padding: 0 1.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 .navigation-buttons__button{
     font: normal normal 500 1.2rem 'UbuntuMedium', sans-serif;
@@ -15,8 +15,10 @@
 .navigation-buttons__button_forward{
     color: var(--White);
     background-color: var(--MarineBlue);
+    margin: 0 0 0 auto;
 }
 .navigation-buttons__button_confirm{
     color: var(--White);
     background-color: var(--PurplishBlue);
+    margin: 0 0 0 auto;
 }

@@ -16,6 +16,9 @@
     font: normal normal 700 1.3rem 'UbuntuBold', sans-serif;
     color: var(--White);
     border: 1px solid var(--White);
+    transition: background-color .5s ease,
+                color .5s ease,
+                border .5s ease;
 }
 .step-item__number_active{
     background-color: var(--LightBlue);
