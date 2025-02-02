@@ -1,11 +1,22 @@
 import './NavigationButtons.css'
 
-const NavigationButtons = () => {
+interface NavigationButtonsProps{
+  quantitySteps: number;
+  currentStep: number;
+  newNavigation: (step: number) => void;
+}
+
+
+const NavigationButtons = ({quantitySteps, currentStep, newNavigation}: NavigationButtonsProps) => {
+  const isBetweenStartAndEnd = () => (currentStep > 0) && (currentStep < quantitySteps)
+  const isBeforeTheEnd = () => (currentStep < quantitySteps-1)
+  const isAtTheEnd = () => (currentStep === quantitySteps-1)
+
   return (
     <section className="navigation-buttons">
-        <button type="button" className="navigation-buttons__button navigation-buttons__button_back">Go Back</button>
-        <button type="button" className="navigation-buttons__button navigation-buttons__button_forward">Next Step</button>
-        <button type="button" className="navigation-buttons__button navigation-buttons__button_confirm">Confirm</button>
+        {isBetweenStartAndEnd() && <button type="button" onClick={() => newNavigation(-1)} className="navigation-buttons__button navigation-buttons__button_back">Go Back</button>}
+        {isBeforeTheEnd() && <button type="button" onClick={() => newNavigation(1)} className="navigation-buttons__button navigation-buttons__button_forward">Next Step</button>}
+        {isAtTheEnd() && <button type="button" onClick={() => newNavigation(1)} className="navigation-buttons__button navigation-buttons__button_confirm">Confirm</button>}
     </section>
   )
 }
