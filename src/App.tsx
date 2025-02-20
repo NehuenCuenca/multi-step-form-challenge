@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { MutableRefObject, useRef, useState } from 'react'
 import './App.css'
 import MultiStepForm from './components/MultiStepForm/MultiStepForm'
 import StepContainer from './components/StepContainer/StepContainer'
@@ -34,20 +34,83 @@ function App() {
   
   const [currentStep, setCurrentStep] = useState<number>(0)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
+  const personalInfoFormEl = useRef<MutableRefObject>(null)
+
+  const validateTextFields = (form: HTMLFormElement) => { 
+    const requiredInputs = form.elements;
+    for (let i = 0; i < requiredInputs.length; i++) {
+      const input = requiredInputs[i];
+      const errorMsg = form.querySelector(`input#${input.id}+.field__error-msg`)
+      
+      const { valueMissing, valid, typeMismatch } = input.validity
+      const hasEmptyText = (input.value.trim().length === 0 && ['text', 'email'].some(v => v === input.type))
+      if( valueMissing || !valid || typeMismatch || hasEmptyText ){
+        toggleFieldValidationStyle(input, errorMsg, false)
+      } else {
+        toggleFieldValidationStyle(input, errorMsg, true)
+      }    
+    }
+  }
+
+  const resetFieldsValidationStyles = (form: HTMLFormElement) => { 
+    const requiredInputs = form.elements;
+
+    for (let i = 0; i < requiredInputs.length; i++) {
+      const input = requiredInputs[i];
+      const errorMsg = form.querySelector(`input#${input.id}+.field__error-msg`)
+      toggleFieldValidationStyle(input, errorMsg, true)
+    }
+  }
+
+  const toggleFieldValidationStyle = (input: Element, errorMsg: Element | null, isValid: boolean) => { 
+    if( isValid ){
+      errorMsg?.classList.add('field__error-msg_hidden')
+      input.classList.remove('field__input_invalid')
+    } else {
+      errorMsg?.classList.remove('field__error-msg_hidden')
+      input.classList.add('field__input_invalid')
+    } 
+  }
 
   const handleNavigationForm = (amount: number) => {
+    const wantsToContinue = amount > 0
+    if(wantsToContinue){
+      if(currentStep === 0 && !personalInfoFormEl.current.checkValidity()) {
+        validateTextFields(personalInfoFormEl.current)
+        return
+      } else {
+        resetFieldsValidationStyles(personalInfoFormEl.current)
+      }
+      // alert('TODO: form validation is missing.')
+    }
+
     setCurrentStep(prev => prev + amount);
   };
   
   return (
     <main>
-      {currentStep}
       <MultiStepForm>
         <StepsList shortenedSteps={shortenedSteps} currentStep={currentStep} />
         
         {/* POSSIBLE TODO: Show one StepContainer by removing children content and render the step content conditionally (to reduce harcoded steps data and optimize dom content) */}
         <StepContainer isVisible={isCurrentStep(0)} containerTitle={steps[0].containerTitle} containerSubTitle={steps[0].containerSubTitle}>
-          Aca va PRIMER STEP
+          <form className='personal-info-form' name='personalInfoForm' ref={personalInfoFormEl}>
+            <div className="field">
+              <label htmlFor="fullNameInput" className='field__label'>Name</label>
+              <input type="text" required name="FullName" id="fullNameInput" className='field__input' placeholder='e.g. Sthephen King' />
+              <span className="field__error-msg field__error-msg_hidden">This field is required</span>
+            </div>
+            <div className="field">
+              <label htmlFor="emailInput" className='field__label'>Email Address</label>
+              <input type="email" required name="EmailAddress" id="emailInput" className='field__input' placeholder='e.g. sthephenking@lorem.com' />
+              <span className="field__error-msg field__error-msg_hidden">This field is required</span>
+            </div>
+            <div className="field">
+              <label htmlFor="phoneInput" className='field__label'>Phone Number</label>
+              <input type="text" required name="PhoneNumber" id="phoneInput" className='field__input' placeholder='e.g. +1 234 567 890'/>
+              <span className="field__error-msg field__error-msg_hidden">This field is required</span>
+            </div>
+          </form>
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(1)} containerTitle={steps[1].containerTitle} containerSubTitle={steps[1].containerSubTitle}>
           Aca va el SEGUNDO STEP
