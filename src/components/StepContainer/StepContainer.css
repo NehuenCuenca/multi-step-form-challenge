@@ -1,13 +1,27 @@
 .step-container{
     opacity: 1;
     visibility: visible;
-    transition: visibility 0s, opacity 0.5s linear;
+    transition: visibility .5s ease, opacity .5s ease;
+    position: relative;
+    top: -4rem;
+    background-color: var(--White);
+    width: 90%;
+    border-radius: 10px;
+    padding: 2rem 1rem;
+    margin: 0 auto;
+    box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+    -moz-box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
 }
 .step-title{
-    font: normal normal 700 1.5rem 'UbuntuBold', sans-serif;
+    font: normal normal 700 1.6rem 'UbuntuBold', sans-serif;
     color: var(--MarineBlue);
 }
 .step-sub-title{
+    width: 80%;
     font: normal normal 400 1.2rem 'UbuntuRegular', sans-serif;
     color: var(--CoolGray);
 }
@@ -19,4 +33,82 @@
     top: 0;
     height: 0;
     pointer-events: none;
+}
+
+/* FIRST STEP */
+.personal-info-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.field{
+    width: 100%;
+    display: grid;
+    grid-template-areas: 
+        "label error-msg"
+        "input input"
+    ;
+    row-gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.field__label{
+    grid-area: label;
+    font: normal normal 400 1.1rem 'UbuntuMedium', sans-serif;
+    color: var(--MarineBlue);
+    text-transform: capitalize
+}
+.field__input{
+    grid-area: input;
+    width: 100%;
+    border-radius: 5px;
+    padding: 1rem;
+    border: 1px solid var(--CoolGray);
+    transition: color .25s ease, border-color .25s ease, outline-color .25s ease;
+}
+
+.field__input::placeholder{
+    font: normal normal 600 1.2rem 'UbuntuMedium', sans-serif;
+    color: var(--CoolGray);
+}
+
+.field__input:focus{
+    outline: 1px solid var(--PurplishBlue);
+    border-color: transparent;
+}
+
+
+.field__input:valid{
+    color: var(--MarineBlue);
+}
+
+.field__input:user-invalid, .field__input_invalid{
+    color: var(--StrawberryRed);
+    border-color: var(--StrawberryRed);
+    outline-color: var(--StrawberryRed);
+}
+
+.field__error-msg{
+    transition: opacity .25s ease;
+    opacity: 1;
+    grid-area: error-msg;
+    color: var(--StrawberryRed);
+    font: normal normal 700 1rem 'UbuntuBold', sans-serif;
+}
+.field__error-msg_hidden {
+    opacity: 0;
+}
+
+@media (width >= 1280px) {
+    .step-container{
+        grid-area: stepContainer;
+        position: static;
+        width: 90%;
+        margin: 0;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+    }
 }

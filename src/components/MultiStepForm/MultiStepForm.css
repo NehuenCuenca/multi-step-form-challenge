@@ -1,3 +1,20 @@
 .multi-step-container{
     width: 100%;
 }
+
+@media (width >= 1280px) {
+    .multi-step-container{
+        width: clamp(1000px, 80%, 1200px);
+        background-color: var(--White);
+        border-radius: 10px;
+        padding: 2rem 1rem;
+        box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+        -webkit-box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+        -moz-box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+        display: grid;
+        grid-template-areas: 
+            "stepsList stepContainer"
+            "stepsList navButtons"
+        ;
+    }
+}

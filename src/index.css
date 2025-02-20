@@ -29,6 +29,7 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  background-color: var(--Magnolia);
 }
 
 img, picture, video, canvas, svg {
@@ -72,9 +73,18 @@ html {
   --CoolGray: hsl(231, 11%, 63%);
   --LightGray: hsl(229, 24%, 87%);
   --Magnolia: hsl(217, 100%, 97%);
-  --Alabaster: hsl(231, 100%, 99%);
+  --Alabaster: hsl(228, 100%, 99%);
   --White: hsl(0, 0%, 100%);
 
   --default-font: 'UbuntuMedium', sans-serif;
   --fallback-font: 'Tahoma', sans-serif;
+}
+
+@media (width >= 1280px) {
+  main{
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

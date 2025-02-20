@@ -1,13 +1,18 @@
 .navigation-buttons{
-    padding: 0 1.5rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
     display: flex;
     justify-content: flex-end;
+    background-color: var(--White);
 }
 .navigation-buttons__button{
     font: normal normal 500 1.2rem 'UbuntuMedium', sans-serif;
     padding: 1rem 1.2rem;
     border-radius: 5px;
     text-transform: capitalize;
+    transition: background-color .5s ease;
 }
 .navigation-buttons__button_back{
     color: var(--CoolGray);
@@ -17,8 +22,25 @@
     background-color: var(--MarineBlue);
     margin: 0 0 0 auto;
 }
+.navigation-buttons__button_forward:hover{
+    background-color: #174a8a;
+}
 .navigation-buttons__button_confirm{
     color: var(--White);
     background-color: var(--PurplishBlue);
     margin: 0 0 0 auto;
+}
+
+@media (width >= 1280px) {
+    .navigation-buttons{
+        grid-area: navButtons;
+        width: 90%;
+        height: 10dvh;
+        align-self: end;
+    }
+
+    .navigation-buttons__button{
+        padding: 0 2rem;
+        border-radius: 10px;
+    }
 }

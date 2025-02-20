@@ -3,17 +3,18 @@
     background-size: cover;
     min-height: 25dvh;
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: flex-start;
     justify-content: center;
+    gap: 1rem;
+    padding: 5dvh 0 0 0;
 }
 
 .step-item{}
 .step-item__number{
-    padding: 1.2rem;
+    padding: .8rem 1rem;
     background-color: transparent;
     border-radius: 100%;
-    font: normal normal 700 1.3rem 'UbuntuBold', sans-serif;
+    font: normal normal 700 1.2rem 'UbuntuBold', sans-serif;
     color: var(--White);
     border: 1px solid var(--White);
     transition: background-color .5s ease,
@@ -36,4 +37,40 @@
     font: normal normal 700 1.2rem 'UbuntuBold', sans-serif;
     color: var(--White);
     display: none;
+}
+
+@media (width >= 1280px) {
+    .steps-list{
+        grid-area: stepsList;
+        background-image: url('../../../starter_files/assets/images/bg-sidebar-desktop.svg');
+        background-repeat: no-repeat;
+        background-position: 0% 100%;
+        border-radius: 15px;
+        width: 25vw;
+        min-height: 75dvh;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 3rem;
+        padding: 5dvh 0 0 5dvh;
+    }
+    
+    .step-item{
+        display: grid;
+        grid-template-areas: 
+            "number indicator"
+            "number title"
+        ;
+        gap: 1dvh 1dvw;
+    }
+    .step-item__number{
+        grid-area: number;
+    }
+    .step-item__step-indicator{
+        grid-area: indicator;
+        display: inherit;
+    }
+    .step-item__title{
+        grid-area: title;
+        display: inherit;
+    }
 }
