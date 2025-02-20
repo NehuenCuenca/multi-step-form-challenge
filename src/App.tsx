@@ -2,7 +2,7 @@ import { MutableRefObject, useRef, useState } from 'react'
 import './App.css'
 import MultiStepForm from './components/MultiStepForm/MultiStepForm'
 import StepContainer from './components/StepContainer/StepContainer'
-import { ShortenedStep, Step } from './types'
+import { personalInfoForm, ShortenedStep, Step } from './types'
 import NavigationButtons from './components/NavigationButtons/NavigationButtons'
 import StepsList from './components/StepsList/StepsList'
 
@@ -35,6 +35,8 @@ function App() {
   const [currentStep, setCurrentStep] = useState<number>(0)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
   const personalInfoFormEl = useRef<MutableRefObject>(null)
+
+  const [personalInfoFormValues, setPersonalInfoFormValues] = useState<personalInfoForm|null>(null)
 
   const validateTextFields = (form: HTMLFormElement) => { 
     const requiredInputs = form.elements;
@@ -72,14 +74,25 @@ function App() {
     } 
   }
 
+  // Function with proper typing
+  const getFormData = (form: HTMLFormElement): personalInfoForm => {
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData) as Record<string, FormDataEntryValue>;
+    
+    // Type assertion to ensure the object matches our interface
+    return object as personalInfoForm;
+  }
+
   const handleNavigationForm = (amount: number) => {
     const wantsToContinue = amount > 0
     if(wantsToContinue){
       if(currentStep === 0 && !personalInfoFormEl.current.checkValidity()) {
         validateTextFields(personalInfoFormEl.current)
+        setPersonalInfoFormValues(null)
         return
       } else {
         resetFieldsValidationStyles(personalInfoFormEl.current)
+        setPersonalInfoFormValues( getFormData(personalInfoFormEl.current) )
       }
       // alert('TODO: form validation is missing.')
     }
