@@ -1,0 +1,47 @@
+.plan-list{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.plan-item{}
+
+.plan-btn{
+    width: 100%;
+    display: grid;
+    grid-template-areas: 
+        "plan-icon plan-title"
+        "plan-icon plan-price"
+        "plan-icon plan-months-free"
+    ;
+    justify-content: start;
+    justify-items: start;
+    gap: .3rem .8rem;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--LightGray);
+    background-color: transparent;
+    transition: border .25s ease, background .25s ease;
+}
+.plan-btn:hover, .plan-btn_selected{
+    border: 1px solid var(--PurplishBlue);
+    background-color: var(--Magnolia);
+}
+.plan-btn__icon{
+    grid-area: plan-icon;
+}
+.plan-btn__title{
+    grid-area: plan-title;
+    font: normal normal 600 1.1rem var(--default-font);
+    color: var(--MarineBlue);
+}
+.plan-item__price{
+    grid-area: plan-price;
+    font: normal normal 500 0.9rem var(--default-font);
+    color: var(--CoolGray);
+}
+.plan-item__months-free{
+    grid-area: plan-months-free;
+    font: normal normal 500 0.8rem var(--default-font);
+    color: var(--MarineBlue);
+}
