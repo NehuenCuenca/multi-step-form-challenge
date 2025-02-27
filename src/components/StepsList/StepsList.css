@@ -11,10 +11,10 @@
 
 .step-item{}
 .step-item__number{
-    padding: .8rem 1rem;
+    padding: .7rem .9rem;
     background-color: transparent;
     border-radius: 100%;
-    font: normal normal 700 1.2rem 'UbuntuBold', sans-serif;
+    font: normal normal 800 0.8rem 'UbuntuBold', sans-serif;
     color: var(--White);
     border: 1px solid var(--White);
     transition: background-color .5s ease,

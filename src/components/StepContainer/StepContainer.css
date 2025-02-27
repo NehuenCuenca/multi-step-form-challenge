@@ -3,7 +3,7 @@
     visibility: visible;
     transition: visibility .5s ease, opacity .5s ease;
     position: relative;
-    top: -4rem;
+    top: -5rem;
     background-color: var(--White);
     width: 90%;
     border-radius: 10px;
