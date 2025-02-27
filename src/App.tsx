@@ -2,9 +2,11 @@ import { MutableRefObject, useRef, useState } from 'react'
 import './App.css'
 import MultiStepForm from './components/MultiStepForm/MultiStepForm'
 import StepContainer from './components/StepContainer/StepContainer'
-import { personalInfoForm, ShortenedStep, Step } from './types'
+import { Period, personalInfoForm, Plan, ShortenedStep, Step } from './types'
 import NavigationButtons from './components/NavigationButtons/NavigationButtons'
 import StepsList from './components/StepsList/StepsList'
+import PlanList from './components/PlanList/PlanList'
+import PeriodSwitch from './components/PeriodSwitch/PeriodSwitch'
 
 function App() {
   const steps: Array<Step> = [
@@ -37,7 +39,7 @@ function App() {
   const personalInfoFormEl = useRef<MutableRefObject>(null)
 
   const [personalInfoFormValues, setPersonalInfoFormValues] = useState<personalInfoForm|null>(null)
-
+  
   const validateTextFields = (form: HTMLFormElement) => { 
     const requiredInputs = form.elements;
     for (let i = 0; i < requiredInputs.length; i++) {
@@ -94,18 +96,31 @@ function App() {
         resetFieldsValidationStyles(personalInfoFormEl.current)
         setPersonalInfoFormValues( getFormData(personalInfoFormEl.current) )
       }
-      // alert('TODO: form validation is missing.')
+    }
+
+    if(currentStep === 1) {
+      console.log('Step 2 selected info:', {
+        planTitle: selectedPlan?.title,
+        price: (selectedPeriod === Period.monthly) 
+              ? selectedPlan?.monthlyPrice
+              : selectedPlan?.yearlyPrice
+      });
     }
 
     setCurrentStep(prev => prev + amount);
   };
+
+  const [selectedPeriod, setSelectedPeriod] = useState<string>(Period.monthly)
+  const handlePeriodSwitch = (period: string) => setSelectedPeriod(period);
+
+  const [selectedPlan, setSelectedPlan] = useState<Plan|null>(null)
+  const handleSelectPlan = (plan: Plan) => setSelectedPlan(plan);
   
   return (
     <main>
       <MultiStepForm>
         <StepsList shortenedSteps={shortenedSteps} currentStep={currentStep} />
         
-        {/* POSSIBLE TODO: Show one StepContainer by removing children content and render the step content conditionally (to reduce harcoded steps data and optimize dom content) */}
         <StepContainer isVisible={isCurrentStep(0)} containerTitle={steps[0].containerTitle} containerSubTitle={steps[0].containerSubTitle}>
           <form className='personal-info-form' name='personalInfoForm' ref={personalInfoFormEl}>
             <div className="field">
@@ -126,7 +141,8 @@ function App() {
           </form>
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(1)} containerTitle={steps[1].containerTitle} containerSubTitle={steps[1].containerSubTitle}>
-          Aca va el SEGUNDO STEP
+          <PlanList selectedPeriod={selectedPeriod} selectNewPlan={handleSelectPlan}/>
+          <PeriodSwitch changePeriod={handlePeriodSwitch} />
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(2)} containerTitle={steps[2].containerTitle} containerSubTitle={steps[2].containerSubTitle}>
           Aca va el TERCERO STEP
