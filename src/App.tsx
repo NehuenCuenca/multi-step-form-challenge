@@ -2,7 +2,7 @@ import { MutableRefObject, useRef, useState } from 'react'
 import './App.css'
 import MultiStepForm from './components/MultiStepForm/MultiStepForm'
 import StepContainer from './components/StepContainer/StepContainer'
-import { Period, personalInfoForm, Plan, ShortenedStep, Step } from './types'
+import { Period, personalInfoForm, Plan, ShortenedStep } from './types'
 import NavigationButtons from './components/NavigationButtons/NavigationButtons'
 import StepsList from './components/StepsList/StepsList'
 import PlanList from './components/PlanList/PlanList'
@@ -12,7 +12,7 @@ import { steps } from './data/mockSteps'
 function App() {
   const shortenedSteps: Array<ShortenedStep> = steps.map(({listTitle}) => ({listTitle}))
   
-  const [currentStep, setCurrentStep] = useState<number>(0)
+  const [currentStep, setCurrentStep] = useState<number>(1)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
   const personalInfoFormEl = useRef<MutableRefObject>(null)
 
@@ -74,15 +74,15 @@ function App() {
         resetFieldsValidationStyles(personalInfoFormEl.current)
         setPersonalInfoFormValues( getFormData(personalInfoFormEl.current) )
       }
-    }
 
-    if(currentStep === 1) {
-      console.log('Step 2 selected info:', {
-        planTitle: selectedPlan?.title,
-        price: (selectedPeriod === Period.monthly) 
-              ? selectedPlan?.monthlyPrice
-              : selectedPlan?.yearlyPrice
-      });
+      if(currentStep === 1) {
+        console.log('Step 2 selected info:', {
+          planTitle: selectedPlan?.title,
+          price: (selectedPeriod === Period.monthly) 
+                ? selectedPlan?.monthlyPrice
+                : selectedPlan?.yearlyPrice
+        });
+      }
     }
 
     setCurrentStep(prev => prev + amount);

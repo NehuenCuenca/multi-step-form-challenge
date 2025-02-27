@@ -1,7 +1,7 @@
 .steps-list{
     background-image: url('../../../starter_files/assets/images/bg-sidebar-mobile.svg');
     background-size: cover;
-    min-height: 25dvh;
+    min-height: 20dvh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
