@@ -2,17 +2,18 @@ import { MutableRefObject, useRef, useState } from 'react'
 import './App.css'
 import MultiStepForm from './components/MultiStepForm/MultiStepForm'
 import StepContainer from './components/StepContainer/StepContainer'
-import { Period, personalInfoForm, Plan, ShortenedStep } from './types'
+import { Addon, Period, personalInfoForm, Plan, ShortenedStep } from './types'
 import NavigationButtons from './components/NavigationButtons/NavigationButtons'
 import StepsList from './components/StepsList/StepsList'
 import PlanList from './components/PlanList/PlanList'
 import PeriodSwitch from './components/PeriodSwitch/PeriodSwitch'
 import { steps } from './data/mockSteps'
+import AddonsList from './components/AddonsList/AddonsList'
 
 function App() {
   const shortenedSteps: Array<ShortenedStep> = steps.map(({listTitle}) => ({listTitle}))
   
-  const [currentStep, setCurrentStep] = useState<number>(1)
+  const [currentStep, setCurrentStep] = useState<number>(2)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
   const personalInfoFormEl = useRef<MutableRefObject>(null)
 
@@ -83,6 +84,13 @@ function App() {
                 : selectedPlan?.yearlyPrice
         });
       }
+
+      if(currentStep === 2) {
+        console.log('Step 3 selected info:', {
+          checkedAddons,
+          selectedPeriod
+        });
+      }
     }
 
     setCurrentStep(prev => prev + amount);
@@ -93,6 +101,16 @@ function App() {
 
   const [selectedPlan, setSelectedPlan] = useState<Plan|null>(null)
   const handleSelectPlan = (plan: Plan) => setSelectedPlan(plan);
+
+  const [checkedAddons, setCheckedAddons] = useState<Array<Addon>>([])
+  const handleCheckAddon = (clickedAddon: Addon, wantToRemove: boolean) => { 
+    if(wantToRemove){
+      setCheckedAddons([...checkedAddons.filter( (addon: Addon) => addon != clickedAddon)])
+      return
+    }
+  
+    setCheckedAddons([...checkedAddons, clickedAddon])
+  }
   
   return (
     <main>
@@ -119,11 +137,11 @@ function App() {
           </form>
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(1)} containerTitle={steps[1].containerTitle} containerSubTitle={steps[1].containerSubTitle}>
-          <PlanList selectedPeriod={selectedPeriod} selectNewPlan={handleSelectPlan}/>
+          <PlanList selectedPeriod={selectedPeriod} selectNewPlan={handleSelectPlan} />
           <PeriodSwitch changePeriod={handlePeriodSwitch} />
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(2)} containerTitle={steps[2].containerTitle} containerSubTitle={steps[2].containerSubTitle}>
-          Aca va el TERCERO STEP
+          <AddonsList selectedPeriod={selectedPeriod} toggleCheckAddon={handleCheckAddon}/>
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle}>
           Aca va el CUARTO STEP
