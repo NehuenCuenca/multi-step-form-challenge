@@ -4,7 +4,8 @@
 
 @media (width >= 1280px) {
     .multi-step-container{
-        width: clamp(1000px, 80%, 1200px);
+        height: clamp(70dvh, 100%, 90dvh);
+        width: clamp(1000px, 85%, 1200px);
         background-color: var(--White);
         border-radius: 10px;
         padding: 2rem 1rem;

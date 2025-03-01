@@ -35,12 +35,16 @@
     .navigation-buttons{
         grid-area: navButtons;
         width: 90%;
-        height: 10dvh;
+        min-height: 10dvh;
         align-self: end;
     }
 
     .navigation-buttons__button{
-        padding: 0 2rem;
+        padding: 1rem 2rem;
         border-radius: 10px;
+    }
+
+    .navigation-buttons__button_back{
+        font-weight: 600;
     }
 }

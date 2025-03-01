@@ -1,23 +1,24 @@
 .plan-list{
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 1rem;
 }
 
 .plan-item{}
 
-.plan-btn{
+.plan-btn {
+    min-height: 90px;
     width: 100%;
     display: grid;
-    grid-template-areas: 
-        "plan-icon plan-title"
+    grid-template-areas: "plan-icon plan-title"
         "plan-icon plan-price"
-        "plan-icon plan-months-free"
-    ;
+        "plan-icon plan-months-free";
     justify-content: start;
     justify-items: start;
+    align-items: start;
+    align-content: center;
     gap: .3rem .8rem;
-    padding: 1rem;
+    padding: .8rem 1rem;
     border-radius: 10px;
     border: 1px solid var(--LightGray);
     background-color: transparent;
@@ -44,4 +45,44 @@
     grid-area: plan-months-free;
     font: normal normal 500 0.8rem var(--default-font);
     color: var(--MarineBlue);
+}
+
+@media (width >= 1280px) {
+    .plan-list{
+        margin: 2rem 0 0 0;
+        flex-direction: row;
+    }
+
+    .plan-item{
+        width: 30%;
+    }
+
+    .plan-btn{
+        min-height: 180px;
+        display: grid;
+        grid-template-areas: 
+            "plan-icon"
+            "."
+            "plan-title"
+            "plan-price"
+            "plan-months-free"
+        ;
+    }
+    .plan-btn:hover, .plan-btn_selected{
+        border: 1px solid var(--PurplishBlue);
+        background-color: var(--Magnolia);
+    }
+    .plan-btn__icon{
+        margin-bottom: 1.5rem;
+    }
+    .plan-btn__title{
+        font-size: 1.2rem;
+    }
+    .plan-item__price{
+        font-size: 1rem;
+    }
+    .plan-item__months-free{
+        font-size: .9rem;
+    }
+    
 }

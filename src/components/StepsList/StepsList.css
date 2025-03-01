@@ -6,14 +6,18 @@
     align-items: flex-start;
     justify-content: center;
     gap: 1rem;
-    padding: 5dvh 0 0 0;
+    padding: 4dvh 0 0 0;
 }
 
 .step-item{}
 .step-item__number{
-    padding: .7rem .9rem;
+    width: 5ch;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     background-color: transparent;
-    border-radius: 100%;
     font: normal normal 800 0.8rem 'UbuntuBold', sans-serif;
     color: var(--White);
     border: 1px solid var(--White);
@@ -47,7 +51,7 @@
         background-position: 0% 100%;
         border-radius: 15px;
         width: 25vw;
-        min-height: 75dvh;
+        height: clamp(65dvh, 100%, 80dvh);
         flex-direction: column;
         justify-content: flex-start;
         gap: 3rem;
@@ -68,9 +72,11 @@
     .step-item__step-indicator{
         grid-area: indicator;
         display: inherit;
+        font-size: .9rem;
     }
     .step-item__title{
         grid-area: title;
         display: inherit;
+        font-size: 1rem;
     }
 }
