@@ -14,7 +14,7 @@ export const addons: Array<Addon> = [
         yearlyPrice: 20,
     },
     {
-        title: 'Customizable Profile',
+        title: 'Customizable profile',
         paragraph: 'Custom theme on your profile',
         monthlyPrice: 2,
         yearlyPrice: 20,

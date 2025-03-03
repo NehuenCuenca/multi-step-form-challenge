@@ -3,9 +3,9 @@ export enum Period {
     yearly = 'YEARLY'
 }
 
-interface Price {
+export interface Price {
     price: number,
-    monthsFree: number
+    monthsFree?: number
 }
 
 export interface Plan {
