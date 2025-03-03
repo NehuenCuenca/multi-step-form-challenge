@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef, useState } from 'react'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import './App.css'
 import MultiStepForm from './components/MultiStepForm/MultiStepForm'
 import StepContainer from './components/StepContainer/StepContainer'
@@ -9,13 +9,16 @@ import PlanList from './components/PlanList/PlanList'
 import PeriodSwitch from './components/PeriodSwitch/PeriodSwitch'
 import { steps } from './data/mockSteps'
 import AddonsList from './components/AddonsList/AddonsList'
+import { Summary } from './types/fourthStep.types'
+import PricesSummary from './components/PricesSummary/PricesSummary'
 
 function App() {
   const shortenedSteps: Array<ShortenedStep> = steps.map(({listTitle}) => ({listTitle}))
   
-  const [currentStep, setCurrentStep] = useState<number>(2)
+  const [currentStep, setCurrentStep] = useState<number>(0)
+  // const [currentStep, setCurrentStep] = useState<number>(3)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
-  const personalInfoFormEl = useRef<MutableRefObject>(null)
+  const personalInfoFormEl = useRef<React.MutableRefObject>(null)
 
   const [personalInfoFormValues, setPersonalInfoFormValues] = useState<personalInfoForm|null>(null)
   
@@ -76,16 +79,32 @@ function App() {
         setPersonalInfoFormValues( getFormData(personalInfoFormEl.current) )
       }
 
-      if(currentStep === 1) {
+      if(currentStep === 1 && selectedPlan) {
+        const planPrice = (selectedPeriod === Period.monthly) 
+                              ? selectedPlan.monthlyPrice
+                              : selectedPlan.yearlyPrice
+                            
+        setSummary({
+          planTitle: selectedPlan.title,
+          planPrice,
+          selectedPeriod: null,
+          checkedAddons: null,
+        })
+      
         console.log('Step 2 selected info:', {
           planTitle: selectedPlan?.title,
-          price: (selectedPeriod === Period.monthly) 
-                ? selectedPlan?.monthlyPrice
-                : selectedPlan?.yearlyPrice
+          planPrice
         });
       }
 
       if(currentStep === 2) {
+        setSummary({ 
+          planTitle: (summary) ? summary.planTitle : null,
+          planPrice: (summary) ? summary.planPrice : null,
+          selectedPeriod,
+          checkedAddons: checkedAddons.map(({title, monthlyPrice, yearlyPrice}) => ({title, monthlyPrice, yearlyPrice}))
+        })
+
         console.log('Step 3 selected info:', {
           checkedAddons,
           selectedPeriod
@@ -111,6 +130,40 @@ function App() {
   
     setCheckedAddons([...checkedAddons, clickedAddon])
   }
+
+  const [summary, setSummary] = useState<Summary|null>(null)
+  // const [summary, setSummary] = useState<Summary|null>({
+  //   "planTitle": "Pro",
+  //   "planPrice": {
+  //     "price": 150,
+  //     "monthsFree": 2
+  //   },
+  //   "selectedPeriod": "YEARLY",
+  //   "checkedAddons": [
+  //     {
+  //       "title": "Larger storage",
+  //       "monthlyPrice": 2,
+  //       "yearlyPrice": 20
+  //     },
+  //     {
+  //       "title": "Larger storage",
+  //       "monthlyPrice": 2,
+  //       "yearlyPrice": 20
+  //     },
+  //     {
+  //       "title": "Larger storage",
+  //       "monthlyPrice": 2,
+  //       "yearlyPrice": 20
+  //     },
+  //   ]
+  // })
+
+  useEffect(() => {
+    if(currentStep === 3){
+      console.log(summary);
+    }
+  }, [summary])
+  
   
   return (
     <main>
@@ -144,7 +197,7 @@ function App() {
           <AddonsList selectedPeriod={selectedPeriod} toggleCheckAddon={handleCheckAddon}/>
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle}>
-          Aca va el CUARTO STEP
+          {summary?.planPrice && <PricesSummary summary={summary}/>}
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(steps.length)} containerTitle={''} containerSubTitle={''}>
           Aca va el THANK YOU
