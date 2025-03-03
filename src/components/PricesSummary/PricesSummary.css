@@ -1,0 +1,16 @@
+.summary-container{}
+.summary-prices-list{
+    padding: 1rem;
+    background-color: var(--Magnolia);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (width >= 1280px) {
+    .summary-prices-list{
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+}
