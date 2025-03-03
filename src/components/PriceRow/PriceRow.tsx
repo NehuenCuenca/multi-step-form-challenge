@@ -3,6 +3,7 @@ import { Period } from "../../types";
 import './PriceRow.css'
 
 interface PriceRowProps {
+    changePlan?: () => void;
     title: string;
     price: number;
     period: string;
@@ -10,7 +11,7 @@ interface PriceRowProps {
     isTotal: boolean;
 }
 
-const PriceRow = ({ title, price, period, belongsToPlan, isTotal }: PriceRowProps) => {
+const PriceRow = ({ changePlan, title, price, period, belongsToPlan, isTotal }: PriceRowProps) => {
     const togglePriceTextByPeriod = (price: number) => {
         const addPlusWhenIsAnAddon = (!belongsToPlan) ? '+':''
 
@@ -30,7 +31,7 @@ const PriceRow = ({ title, price, period, belongsToPlan, isTotal }: PriceRowProp
     return (
         <div className="summary-item">
             <span className={`summary-item__title ${(belongsToPlan) ? 'summary-item__title_plan':''}`}>{title}</span>
-            {/* TODO: Hacer un context provider para este boton */}{belongsToPlan && <button type="button" className="summary-item__change-plan-btn">Change</button>}
+            {belongsToPlan && <button type="button" onClick={changePlan} className="summary-item__change-plan-btn">Change</button>}
             <span className={spanPriceGroupStyles}>{togglePriceTextByPeriod(price)}</span>
         </div>
     )

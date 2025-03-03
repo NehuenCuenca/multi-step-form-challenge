@@ -1,20 +1,21 @@
-import { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import MultiStepForm from './components/MultiStepForm/MultiStepForm'
-import StepContainer from './components/StepContainer/StepContainer'
-import { Addon, Period, personalInfoForm, Plan, ShortenedStep } from './types'
-import NavigationButtons from './components/NavigationButtons/NavigationButtons'
-import StepsList from './components/StepsList/StepsList'
-import PlanList from './components/PlanList/PlanList'
-import PeriodSwitch from './components/PeriodSwitch/PeriodSwitch'
-import { steps } from './data/mockSteps'
 import AddonsList from './components/AddonsList/AddonsList'
-import { Summary } from './types/fourthStep.types'
+import MultiStepForm from './components/MultiStepForm/MultiStepForm'
+import NavigationButtons from './components/NavigationButtons/NavigationButtons'
+import PeriodSwitch from './components/PeriodSwitch/PeriodSwitch'
+import PlanList from './components/PlanList/PlanList'
+import PriceRow from './components/PriceRow/PriceRow'
 import PricesSummary from './components/PricesSummary/PricesSummary'
+import StepContainer from './components/StepContainer/StepContainer'
+import StepsList from './components/StepsList/StepsList'
+import { steps } from './data/mockSteps'
+import { Addon, Period, personalInfoForm, Plan, ShortenedStep } from './types'
+import { Summary } from './types/fourthStep.types'
 
 function App() {
   const shortenedSteps: Array<ShortenedStep> = steps.map(({listTitle}) => ({listTitle}))
-  
+
   const [currentStep, setCurrentStep] = useState<number>(0)
   // const [currentStep, setCurrentStep] = useState<number>(3)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
@@ -197,7 +198,9 @@ function App() {
           <AddonsList selectedPeriod={selectedPeriod} toggleCheckAddon={handleCheckAddon}/>
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle}>
-          {summary?.planPrice && <PricesSummary summary={summary}/>}
+          {summary?.planPrice && <PricesSummary summary={summary}>
+            <PriceRow changePlan={() => setCurrentStep(1)} title={`${summary.planTitle!} (${summary.selectedPeriod})`} price={summary.planPrice!.price} belongsToPlan={true} period={summary.selectedPeriod!} isTotal={false}/>
+          </PricesSummary>}
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(steps.length)} containerTitle={''} containerSubTitle={''}>
           Aca va el THANK YOU

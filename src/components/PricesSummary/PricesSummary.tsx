@@ -4,10 +4,11 @@ import PriceRow from "../PriceRow/PriceRow";
 import './PricesSummary.css'
 
 interface SummaryProps {
+    children: React.ReactNode
     summary: Summary | null;
 }
 
-const PricesSummary = ({ summary }: SummaryProps) => {   
+const PricesSummary = ({ children: PlanPriceRow, summary }: SummaryProps) => {   
 
     const pickAddonPriceByPeriod = (addon: SemiAddon): number => { 
         return (summary?.selectedPeriod === Period.monthly)
@@ -33,7 +34,7 @@ const PricesSummary = ({ summary }: SummaryProps) => {
             {
                 summary && 
                 <div className="summary-prices-list">
-                    <PriceRow title={`${summary.planTitle!} (${summary.selectedPeriod})`} price={summary.planPrice!.price} belongsToPlan={true} period={summary.selectedPeriod!} isTotal={false}/>
+                    {PlanPriceRow}
                     
                     {
                         summary.checkedAddons?.map( (addon: SemiAddon, index: number) => <PriceRow key={index} title={addon.title} price={pickAddonPriceByPeriod(addon)} belongsToPlan={false} period={summary.selectedPeriod!} isTotal={false}/>)
