@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 1.2rem;
+    justify-self: center;
 }
 .step-title{
     font: normal normal 700 1.6rem 'UbuntuBold', sans-serif;
@@ -67,6 +68,8 @@
     padding: 1rem;
     border: 1px solid var(--CoolGray);
     transition: color .25s ease, border-color .25s ease, outline-color .25s ease;
+    font: normal normal 600 1.2rem 'UbuntuMedium', sans-serif;
+    color: var(--MarineBlue);
 }
 
 .field__input::placeholder{
