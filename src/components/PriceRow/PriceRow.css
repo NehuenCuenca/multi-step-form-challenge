@@ -23,9 +23,13 @@
     grid-area: item-change-plan;
     padding: 0;
     text-decoration: underline;
-    font: normal normal 400 1rem var(--default-font);
+    font: normal normal 500 1rem var(--default-font);
     color: gray;
     justify-self: start;
+}
+
+.summary-item__change-plan-btn:hover{
+    color: var(--PurplishBlue);
 }
 
 .summary-item:has(.summary-item__change-plan-btn){

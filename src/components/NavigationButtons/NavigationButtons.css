@@ -12,10 +12,13 @@
     padding: 1rem 1.2rem;
     border-radius: 5px;
     text-transform: capitalize;
-    transition: background-color .5s ease;
+    transition: background-color .5s ease, color .5s ease;
 }
 .navigation-buttons__button_back{
     color: var(--CoolGray);
+}
+.navigation-buttons__button_back:hover{
+    color: var(--MarineBlue);
 }
 .navigation-buttons__button_forward{
     color: var(--White);
@@ -29,6 +32,10 @@
     color: var(--White);
     background-color: var(--PurplishBlue);
     margin: 0 0 0 auto;
+}
+
+.navigation-buttons__button_confirm:hover{
+    background-color: #938cfe;
 }
 
 @media (width >= 1280px) {
