@@ -12,12 +12,12 @@ import StepsList from './components/StepsList/StepsList'
 import { steps } from './data/mockSteps'
 import { Addon, Period, personalInfoForm, Plan, ShortenedStep } from './types'
 import { Summary } from './types/fourthStep.types'
+import ConfirmedSubscriptionMessage from './components/ConfirmedSubscriptionMessage/ConfirmedSubscriptionMessage'
 
 function App() {
   const shortenedSteps: Array<ShortenedStep> = steps.map(({listTitle}) => ({listTitle}))
 
   const [currentStep, setCurrentStep] = useState<number>(0)
-  // const [currentStep, setCurrentStep] = useState<number>(3)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
   const personalInfoFormEl = useRef<React.MutableRefObject>(null)
 
@@ -133,31 +133,6 @@ function App() {
   }
 
   const [summary, setSummary] = useState<Summary|null>(null)
-  // const [summary, setSummary] = useState<Summary|null>({
-  //   "planTitle": "Pro",
-  //   "planPrice": {
-  //     "price": 150,
-  //     "monthsFree": 2
-  //   },
-  //   "selectedPeriod": "YEARLY",
-  //   "checkedAddons": [
-  //     {
-  //       "title": "Larger storage",
-  //       "monthlyPrice": 2,
-  //       "yearlyPrice": 20
-  //     },
-  //     {
-  //       "title": "Larger storage",
-  //       "monthlyPrice": 2,
-  //       "yearlyPrice": 20
-  //     },
-  //     {
-  //       "title": "Larger storage",
-  //       "monthlyPrice": 2,
-  //       "yearlyPrice": 20
-  //     },
-  //   ]
-  // })
 
   useEffect(() => {
     if(currentStep === 3){
@@ -165,6 +140,7 @@ function App() {
     }
   }, [summary])
   
+  const [hasConfirmForm, setHasConfirmForm] = useState<boolean>(false)
   
   return (
     <main>
@@ -197,16 +173,17 @@ function App() {
         <StepContainer isVisible={isCurrentStep(2)} containerTitle={steps[2].containerTitle} containerSubTitle={steps[2].containerSubTitle}>
           <AddonsList selectedPeriod={selectedPeriod} toggleCheckAddon={handleCheckAddon}/>
         </StepContainer>
-        <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle}>
-          {summary?.planPrice && <PricesSummary summary={summary}>
-            <PriceRow changePlan={() => setCurrentStep(1)} title={`${summary.planTitle!} (${summary.selectedPeriod})`} price={summary.planPrice!.price} belongsToPlan={true} period={summary.selectedPeriod!} isTotal={false}/>
-          </PricesSummary>}
-        </StepContainer>
-        <StepContainer isVisible={isCurrentStep(steps.length)} containerTitle={''} containerSubTitle={''}>
-          Aca va el THANK YOU
+        <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle} hideContainerHeadings={hasConfirmForm}>
+          { 
+            (!hasConfirmForm && summary?.checkedAddons) 
+              ? <PricesSummary summary={summary}>
+                  <PriceRow changePlan={() => setCurrentStep(1)} title={`${summary.planTitle!} (${summary.selectedPeriod})`} price={summary.planPrice!.price} belongsToPlan={true} period={summary.selectedPeriod!} isTotal={false}/>
+                </PricesSummary>
+              : <ConfirmedSubscriptionMessage />
+          }
         </StepContainer>
 
-        <NavigationButtons quantitySteps={steps.length} currentStep={currentStep} newNavigation={handleNavigationForm}/>
+        {!hasConfirmForm && <NavigationButtons quantitySteps={steps.length} currentStep={currentStep} newNavigation={handleNavigationForm} confirmFinishForm={() => setHasConfirmForm(true)} />}
       </MultiStepForm>
     </main>
   )

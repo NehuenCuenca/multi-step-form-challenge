@@ -1,0 +1,21 @@
+.message-container{
+    padding: 4rem 1.5rem;
+    min-height: 70dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.message-container__icon{
+    margin-bottom: 2rem;
+}
+.message-container__title{
+    font: normal normal 700 1.8rem var(--default-font);
+    color: var(--MarineBlue);
+    margin-bottom: 1rem;
+}
+.message-container__paragraph{
+    font: normal normal 400 1.2rem var(--default-font);
+    color: var(--CoolGray);
+    text-align: center;
+}
