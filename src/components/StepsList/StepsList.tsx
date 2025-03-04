@@ -7,7 +7,7 @@ interface StepsListProps{
 }
 
 const StepsList = ({shortenedSteps, currentStep}: StepsListProps) => {
-  const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
+  const isCurrentStep: (step: number) => boolean = (step: number) => step === currentStep
 
   return (
     <ul className="steps-list">

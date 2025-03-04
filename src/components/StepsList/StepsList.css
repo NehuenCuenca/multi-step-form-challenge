@@ -56,6 +56,7 @@
         justify-content: flex-start;
         gap: 3rem;
         padding: 5dvh 0 0 5dvh;
+        justify-self: start;
     }
     
     .step-item{

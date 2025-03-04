@@ -17,5 +17,6 @@
             "stepsList stepContainer"
             "stepsList navButtons"
         ;
+        gap: 0 2rem;
     }
 }
