@@ -31,16 +31,13 @@ const PricesSummary = ({ children: PlanPriceRow, summary }: SummaryProps) => {
 
     return (
         <div className="summary-container">
-            {
-                summary && 
-                <div className="summary-prices-list">
-                    {PlanPriceRow}
-                    
-                    {
-                        summary.checkedAddons?.map( (addon: SemiAddon, index: number) => <PriceRow key={index} title={addon.title} price={pickAddonPriceByPeriod(addon)} belongsToPlan={false} period={summary.selectedPeriod!} isTotal={false}/>)
-                    }
-                </div>
-            }
+            <div className="summary-prices-list">
+                {PlanPriceRow}
+                
+                {
+                    summary?.checkedAddons?.map( (addon: SemiAddon, index: number) => <PriceRow key={index} title={addon.title} price={pickAddonPriceByPeriod(addon)} belongsToPlan={false} period={summary.selectedPeriod!} isTotal={false}/>)
+                }
+            </div>
             <PriceRow 
                 title={totalPerPeriod()}
                 price={calculateTotalPriceOfSummary()} 
