@@ -26,6 +26,7 @@
     font: normal normal 500 1rem var(--default-font);
     color: gray;
     justify-self: start;
+    transition: color .25s ease;
 }
 
 .summary-item__change-plan-btn:hover{

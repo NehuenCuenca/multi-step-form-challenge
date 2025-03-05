@@ -4,19 +4,21 @@
 
 @media (width >= 1280px) {
     .multi-step-container{
-        height: clamp(70dvh, 100%, 90dvh);
-        width: clamp(1000px, 85%, 1200px);
         background-color: var(--White);
         border-radius: 10px;
         padding: 2rem 1rem;
         box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
         -webkit-box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
         -moz-box-shadow: 0px 10px 40px -25px rgba(0,0,0,0.8);
+        width: 90%;
+        height: 90%;
         display: grid;
+        grid-template-columns: 30% 60%;
+        grid-template-rows: auto auto;
         grid-template-areas: 
             "stepsList stepContainer"
             "stepsList navButtons"
         ;
-        gap: 0 2rem;
+        justify-content: space-around;
     }
 }

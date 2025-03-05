@@ -79,12 +79,3 @@ html {
   --default-font: 'UbuntuMedium', sans-serif;
   --fallback-font: 'Tahoma', sans-serif;
 }
-
-@media (width >= 1280px) {
-  main{
-    height: 100dvh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}

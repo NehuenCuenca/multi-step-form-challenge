@@ -42,8 +42,8 @@
     .navigation-buttons{
         grid-area: navButtons;
         width: 90%;
-        min-height: 10dvh;
         align-self: end;
+        justify-self: center;
     }
 
     .navigation-buttons__button{

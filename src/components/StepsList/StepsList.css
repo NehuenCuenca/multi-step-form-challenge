@@ -50,13 +50,10 @@
         background-repeat: no-repeat;
         background-position: 0% 100%;
         border-radius: 15px;
-        width: 25vw;
-        height: clamp(65dvh, 100%, 80dvh);
         flex-direction: column;
         justify-content: flex-start;
         gap: 3rem;
         padding: 5dvh 0 0 5dvh;
-        justify-self: start;
     }
     
     .step-item{
