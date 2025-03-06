@@ -1,6 +1,6 @@
 import './PlanList.css'
 import { Period, Plan } from "../../types";
-import { MouseEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { plans } from '../../data/mockPlans';
 
 interface PlanListProps {
@@ -12,20 +12,22 @@ const PlanList = ({selectedPeriod, selectNewPlan}: PlanListProps) => {
 
     const defaultSelectedPlanIndex = 0
 
-    const planListEl = useRef<MutableRefObject>(null)
+    const plansListEl = useRef<HTMLUListElement>(null)
     const [selectedPlan, setSelectedPlan] = useState<Plan>(plans[defaultSelectedPlanIndex])
 
 
     useEffect(() => {
-        const planButtons: Array<HTMLButtonElement> = Array.from(planListEl.current.querySelectorAll('.plan-btn'))
+        const planButtons: Array<HTMLButtonElement> = plansListEl.current 
+                                                        ? Array.from(plansListEl.current.querySelectorAll('.plan-btn'))
+                                                        : [];
         planButtons[defaultSelectedPlanIndex].classList.add('plan-btn_selected')      
         selectNewPlan(selectedPlan)
     }, [])
 
     const handleClickPlan = (event: MouseEvent) => { 
-        const planButtons: Array<HTMLButtonElement> = Array.from(planListEl.current.querySelectorAll('.plan-btn'))
+        const plansButtons: Array<HTMLButtonElement> = Array.from(plansListEl.current!.querySelectorAll('.plan-btn'))
         
-        const previousSelectedPlanBtn = planButtons.find((plantBtn: HTMLButtonElement) => plantBtn.classList.contains('plan-btn_selected'))
+        const previousSelectedPlanBtn = plansButtons.find((plantBtn: HTMLButtonElement) => plantBtn.classList.contains('plan-btn_selected'))
         if( previousSelectedPlanBtn ){ previousSelectedPlanBtn.classList.remove('plan-btn_selected')}
         
         event.currentTarget.classList.add('plan-btn_selected')
@@ -35,7 +37,7 @@ const PlanList = ({selectedPeriod, selectNewPlan}: PlanListProps) => {
     }
 
     return (
-        <ul className="plan-list" ref={planListEl}>
+        <ul className="plan-list" ref={plansListEl}>
             {
                 plans.map( (plan, index) => <li className="plan-item" key={index}>
                     <button type="button" className="plan-btn" onClick={handleClickPlan} data-plan-idx={index}>

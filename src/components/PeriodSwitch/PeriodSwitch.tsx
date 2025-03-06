@@ -1,31 +1,33 @@
-import { ChangeEventHandler, MutableRefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './PeriodSwitch.css'
 import { Period } from '../../types';
 
 interface PeriodSwitchProps {
-  changePeriod: (period: string | null) => void;
+  changePeriod: (period: string|null) => void;
 }
 
 const PeriodSwitch = ({ changePeriod }: PeriodSwitchProps) => {
-  const periodSwitchEl = useRef<MutableRefObject>(null)
+  const periodSwitchEl = useRef<HTMLDivElement>(null)
 
-  const switchHandler = (event: ChangeEventHandler<HTMLInputElement>) => {
-    const periodsNameEls: Array<HTMLLabelElement> = Array.from(periodSwitchEl.current.querySelectorAll('.period-name'))
-    const previousActivePeriodName = periodsNameEls.find( (element): HTMLLabelElement => element.classList.contains('period-name_active'))
+  const switchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const periodsNameEls: Array<HTMLLabelElement> = Array.from(periodSwitchEl.current!.querySelectorAll('.period-name'))
+    
+    const previousActivePeriodName = periodsNameEls.find( (element) => element.classList.contains('period-name_active'))
+    previousActivePeriodName?.classList.remove('period-name_active')
+    
     const activePeriodNameEl = periodsNameEls[Number(event.target.checked)]
-    previousActivePeriodName.classList.remove('period-name_active')
     activePeriodNameEl.classList.add('period-name_active')
     
-    changePeriod( activePeriodNameEl.getAttribute('data-period') )
+    changePeriod( activePeriodNameEl.getAttribute('data-period') || activePeriodNameEl.textContent )
   }
 
   useEffect(() => {
-    const switchCheckboxEl = periodSwitchEl.current.querySelector('.switch__checkbox')
-    const defaultCheckedPeriod = (switchCheckboxEl.checked) ? Period.yearly : Period.monthly
+    const switchCheckboxEl = periodSwitchEl.current?.querySelector('.switch__checkbox') as HTMLInputElement
+    const defaultCheckedPeriod = (switchCheckboxEl?.checked) ? Period.yearly : Period.monthly
     changePeriod(defaultCheckedPeriod)
     
-    const periodsNameEls: Array<HTMLLabelElement> = Array.from(periodSwitchEl.current.querySelectorAll('.period-name'))
-    const activePeriodNameEl = periodsNameEls[Number(switchCheckboxEl.checked)]
+    const periodsNameEls: Array<HTMLLabelElement> = Array.from(periodSwitchEl.current!.querySelectorAll('.period-name'))
+    const activePeriodNameEl = periodsNameEls[Number(switchCheckboxEl?.checked)]
     activePeriodNameEl.classList.add('period-name_active')
   }, [])
 

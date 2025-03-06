@@ -7,8 +7,8 @@ export interface SemiAddon {
 }
 
 export interface Summary {
-    planTitle: string | null;
-    planPrice: Price | null;
-    selectedPeriod: string | null;
-    checkedAddons: Array<SemiAddon> | null;
+    planTitle: string;
+    planPrice: Price;
+    selectedPeriod: string;
+    checkedAddons: Array<SemiAddon>;
 }

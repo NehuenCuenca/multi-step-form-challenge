@@ -5,27 +5,27 @@ import './PricesSummary.css'
 
 interface SummaryProps {
     children: React.ReactNode
-    summary: Summary | null;
+    summary: Summary;
 }
 
 const PricesSummary = ({ children: PlanPriceRow, summary }: SummaryProps) => {   
 
     const pickAddonPriceByPeriod = (addon: SemiAddon): number => { 
-        return (summary?.selectedPeriod === Period.monthly)
+        return (summary.selectedPeriod === Period.monthly)
                     ? addon.monthlyPrice
                     : addon.yearlyPrice
     }
 
     const calculateTotalPriceOfSummary = (): number => {
-        const addonsTotalPrices = summary!.checkedAddons?.reduce((acum: number, addon: SemiAddon) => {
+        const addonsTotalPrices = summary.checkedAddons.reduce((acum: number, addon: SemiAddon) => {
             acum += pickAddonPriceByPeriod(addon)
             return acum 
         }, 0)   
         
-        return addonsTotalPrices + summary!.planPrice!.price 
+        return addonsTotalPrices + summary.planPrice.price 
     }
 
-    const totalPerPeriod = (): string => (summary?.selectedPeriod === Period.monthly)
+    const totalPerPeriod = (): string => (summary.selectedPeriod === Period.monthly)
                                     ? 'Total (per month)'
                                     : 'Total (per year)'
 
@@ -35,14 +35,14 @@ const PricesSummary = ({ children: PlanPriceRow, summary }: SummaryProps) => {
                 {PlanPriceRow}
                 
                 {
-                    summary?.checkedAddons?.map( (addon: SemiAddon, index: number) => <PriceRow key={index} title={addon.title} price={pickAddonPriceByPeriod(addon)} belongsToPlan={false} period={summary.selectedPeriod!} isTotal={false}/>)
+                    summary.checkedAddons.map( (addon: SemiAddon, index: number) => <PriceRow key={index} title={addon.title} price={pickAddonPriceByPeriod(addon)} belongsToPlan={false} period={summary.selectedPeriod} isTotal={false}/>)
                 }
             </div>
             <PriceRow 
                 title={totalPerPeriod()}
                 price={calculateTotalPriceOfSummary()} 
                 belongsToPlan={false} 
-                period={summary!.selectedPeriod!}
+                period={summary.selectedPeriod}
                 isTotal={true}
             />
         </div>

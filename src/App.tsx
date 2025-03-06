@@ -19,14 +19,14 @@ function App() {
 
   const [currentStep, setCurrentStep] = useState<number>(0)
   const isCurrentStep: (step: number) => boolean = (stepNumber: number) => stepNumber === currentStep
-  const personalInfoFormEl = useRef<React.MutableRefObject>(null)
+  const personalInfoFormEl = useRef<HTMLFormElement>(null)
 
   const [personalInfoFormValues, setPersonalInfoFormValues] = useState<personalInfoForm|null>(null)
   
   const validateTextFields = (form: HTMLFormElement) => { 
     const requiredInputs = form.elements;
     for (let i = 0; i < requiredInputs.length; i++) {
-      const input = requiredInputs[i];
+      const input = requiredInputs[i] as HTMLInputElement;
       const errorMsg = form.querySelector(`input#${input.id}+.field__error-msg`)
       
       const { valueMissing, valid, typeMismatch } = input.validity
@@ -71,13 +71,13 @@ function App() {
   const handleNavigationForm = (amount: number) => {
     const wantsToContinue = amount > 0
     if(wantsToContinue){
-      if(currentStep === 0 && !personalInfoFormEl.current.checkValidity()) {
-        validateTextFields(personalInfoFormEl.current)
+      if(currentStep === 0 && !personalInfoFormEl.current?.checkValidity()) {
+        validateTextFields(personalInfoFormEl.current!)
         setPersonalInfoFormValues(null)
         return
       } else {
-        resetFieldsValidationStyles(personalInfoFormEl.current)
-        setPersonalInfoFormValues( getFormData(personalInfoFormEl.current) )
+        resetFieldsValidationStyles(personalInfoFormEl.current!)
+        setPersonalInfoFormValues( getFormData(personalInfoFormEl.current!) )
       }
 
       if(currentStep === 1 && selectedPlan) {
@@ -88,8 +88,8 @@ function App() {
         setSummary({
           planTitle: selectedPlan.title,
           planPrice,
-          selectedPeriod: null,
-          checkedAddons: null,
+          selectedPeriod: '',
+          checkedAddons: [],
         })
       
         console.log('Step 2 selected info:', {
@@ -99,9 +99,10 @@ function App() {
       }
 
       if(currentStep === 2) {
+        const {planTitle, planPrice} = summary
         setSummary({ 
-          planTitle: (summary) ? summary.planTitle : null,
-          planPrice: (summary) ? summary.planPrice : null,
+          planTitle,
+          planPrice,
           selectedPeriod,
           checkedAddons: checkedAddons.map(({title, monthlyPrice, yearlyPrice}) => ({title, monthlyPrice, yearlyPrice}))
         })
@@ -117,7 +118,7 @@ function App() {
   };
 
   const [selectedPeriod, setSelectedPeriod] = useState<string>(Period.monthly)
-  const handlePeriodSwitch = (period: string) => setSelectedPeriod(period);
+  const handlePeriodSwitch = (period: string|null) => setSelectedPeriod(period!);
 
   const [selectedPlan, setSelectedPlan] = useState<Plan|null>(null)
   const handleSelectPlan = (plan: Plan) => setSelectedPlan(plan);
@@ -132,7 +133,15 @@ function App() {
     setCheckedAddons([...checkedAddons, clickedAddon])
   }
 
-  const [summary, setSummary] = useState<Summary|null>(null)
+  const [summary, setSummary] = useState<Summary>({
+    planTitle: "",
+    planPrice: {
+      price: 0,
+      monthsFree: 0
+    },
+    selectedPeriod: '',
+    checkedAddons: []
+  });
 
   useEffect(() => {
     if(currentStep === 3){
@@ -175,9 +184,9 @@ function App() {
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle} hideContainerHeadings={hasConfirmForm}>
           { 
-            (!hasConfirmForm && summary?.checkedAddons) 
+            (!hasConfirmForm && summary.checkedAddons.length>0) 
               ? <PricesSummary summary={summary}>
-                  <PriceRow changePlan={() => setCurrentStep(1)} title={`${summary.planTitle!} (${summary.selectedPeriod})`} price={summary.planPrice!.price} belongsToPlan={true} period={summary.selectedPeriod!} isTotal={false}/>
+                  <PriceRow changePlan={() => setCurrentStep(1)} title={`${summary.planTitle} (${summary.selectedPeriod})`} price={summary.planPrice.price} belongsToPlan={true} period={summary.selectedPeriod} isTotal={false}/>
                 </PricesSummary>
               : <ConfirmedSubscriptionMessage />
           }
