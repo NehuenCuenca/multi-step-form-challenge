@@ -10,6 +10,7 @@ export interface Price {
 
 export interface Plan {
     iconPath: string,
+    iconImage: string,
     title: string,
     monthlyPrice: Price,
     yearlyPrice: Price,

@@ -1,7 +1,7 @@
 import './PlanList.css'
-import { Period, Plan } from "../../types";
+import { Period, Plan } from "@ownTypes/index";
 import { MouseEvent, useEffect, useRef, useState } from 'react';
-import { plans } from '../../data/mockPlans';
+import { plans } from '@data/mockPlans';
 
 interface PlanListProps {
     selectedPeriod: string;
@@ -41,7 +41,7 @@ const PlanList = ({selectedPeriod, selectNewPlan}: PlanListProps) => {
             {
                 plans.map( (plan, index) => <li className="plan-item" key={index}>
                     <button type="button" className="plan-btn" onClick={handleClickPlan} data-plan-idx={index}>
-                        <img src={plan.iconPath} alt={`${plan.title} icon`} className="plan-btn__icon"/>
+                        <img src={plan.iconImage} alt={`${plan.title} icon`} className="plan-btn__icon"/>
                         <span className="plan-btn__title">{plan.title}</span>
                         
                         {selectedPeriod === Period.monthly && <span className="plan-item__price">${plan.monthlyPrice.price}/mo</span>}
