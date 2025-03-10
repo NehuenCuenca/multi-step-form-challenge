@@ -1,6 +1,5 @@
-import { ChangeEvent } from "react";
-import { addons } from "../../data/mockAddons";
-import { Addon, Period } from "../../types";
+import { addons } from "@data/mockAddons";
+import { Addon, Period } from "@ownTypes/index";
 import "./AddonsList.css";
 
 interface AddonsListProps {
@@ -9,7 +8,7 @@ interface AddonsListProps {
 }
 
 const AddonsList = ({ selectedPeriod, toggleCheckAddon }: AddonsListProps) => {
-    const handleClickAddon = (event: ChangeEvent) => { 
+    const handleClickAddon = (event: React.ChangeEvent<HTMLInputElement>) => { 
         const addonIdx = Number(event.currentTarget.getAttribute('data-addon-idx'))
         const clickedAddon = addons[addonIdx]
         return (event.currentTarget.checked) 
