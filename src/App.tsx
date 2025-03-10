@@ -1,18 +1,17 @@
+import AddonsList from '@components/AddonsList/AddonsList'
+import ConfirmedSubscriptionMessage from '@components/ConfirmedSubscriptionMessage/ConfirmedSubscriptionMessage'
+import MultiStepForm from '@components/MultiStepForm/MultiStepForm'
+import NavigationButtons from '@components/NavigationButtons/NavigationButtons'
+import PeriodSwitch from '@components/PeriodSwitch/PeriodSwitch'
+import PlanList from '@components/PlanList/PlanList'
+import PriceRow from '@components/PriceRow/PriceRow'
+import PricesSummary from '@components/PricesSummary/PricesSummary'
+import StepContainer from '@components/StepContainer/StepContainer'
+import StepsList from '@components/StepsList/StepsList'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import AddonsList from './components/AddonsList/AddonsList'
-import MultiStepForm from './components/MultiStepForm/MultiStepForm'
-import NavigationButtons from './components/NavigationButtons/NavigationButtons'
-import PeriodSwitch from './components/PeriodSwitch/PeriodSwitch'
-import PlanList from './components/PlanList/PlanList'
-import PriceRow from './components/PriceRow/PriceRow'
-import PricesSummary from './components/PricesSummary/PricesSummary'
-import StepContainer from './components/StepContainer/StepContainer'
-import StepsList from './components/StepsList/StepsList'
-import { steps } from './data/mockSteps'
-import { Addon, Period, personalInfoForm, Plan, ShortenedStep } from './types'
-import { Summary } from './types/fourthStep.types'
-import ConfirmedSubscriptionMessage from './components/ConfirmedSubscriptionMessage/ConfirmedSubscriptionMessage'
+import { steps } from '@data/mockSteps'
+import { Addon, Period, personalInfoForm, Plan, ShortenedStep, Summary } from '@ownTypes/index'
 
 function App() {
   const shortenedSteps: Array<ShortenedStep> = steps.map(({listTitle}) => ({listTitle}))
@@ -184,7 +183,7 @@ function App() {
         </StepContainer>
         <StepContainer isVisible={isCurrentStep(3)} containerTitle={steps[3].containerTitle} containerSubTitle={steps[3].containerSubTitle} hideContainerHeadings={hasConfirmForm}>
           { 
-            (!hasConfirmForm && summary.checkedAddons.length>0) 
+            (!hasConfirmForm) 
               ? <PricesSummary summary={summary}>
                   <PriceRow changePlan={() => setCurrentStep(1)} title={`${summary.planTitle} (${summary.selectedPeriod})`} price={summary.planPrice.price} belongsToPlan={true} period={summary.selectedPeriod} isTotal={false}/>
                 </PricesSummary>
