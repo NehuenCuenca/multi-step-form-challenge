@@ -1,5 +1,4 @@
-import { Period } from "../../types";
-import { SemiAddon, Summary } from "../../types/fourthStep.types"
+import { Period, SemiAddon, Summary } from "@ownTypes/index";
 import PriceRow from "../PriceRow/PriceRow";
 import './PricesSummary.css'
 

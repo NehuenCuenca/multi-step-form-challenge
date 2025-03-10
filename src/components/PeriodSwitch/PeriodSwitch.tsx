@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './PeriodSwitch.css'
-import { Period } from '../../types';
+import { Period } from '@ownTypes/index';
 
 interface PeriodSwitchProps {
   changePeriod: (period: string|null) => void;

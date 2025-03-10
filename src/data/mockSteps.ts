@@ -1,4 +1,4 @@
-import { Step } from "../types";
+import { Step } from "@ownTypes/index";
 
 export const steps: Array<Step> = [
   {

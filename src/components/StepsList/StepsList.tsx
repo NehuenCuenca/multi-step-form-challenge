@@ -1,4 +1,4 @@
-import { ShortenedStep } from "../../types";
+import { ShortenedStep } from "@ownTypes/index";
 import "./StepsList.css";
 
 interface StepsListProps{

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Period } from "../../types";
+import { Period } from "@ownTypes/index";
 import './PriceRow.css'
 
 interface PriceRowProps {

@@ -1,4 +1,4 @@
-import { Addon } from "../types";
+import { Addon } from "@ownTypes/index";
 
 export const addons: Array<Addon> = [
     {
