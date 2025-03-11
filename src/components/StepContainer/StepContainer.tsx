@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './StepContainer.css'
 
 interface StepContainerProps{
@@ -9,8 +10,23 @@ interface StepContainerProps{
 }
 
 const StepContainer = ({children, containerTitle, containerSubTitle, isVisible, hideContainerHeadings}: StepContainerProps) => {
+  const stepContainerElement = useRef<HTMLDivElement>(null)
+  
+  useEffect(() => {
+    if( !isVisible ){
+      stepContainerElement.current?.addEventListener('click', (event) => {
+        const target = event.target as Element;
+        if (target.closest('.step-container_hidden')) {
+          event.stopPropagation();
+          event.preventDefault();
+          return false;
+        }
+      }, true)
+    }
+  }, [isVisible])
+
   return (
-    <div className={`step-container ${(!isVisible) ? 'step-container_hidden':''}`}>
+    <div ref={stepContainerElement} className={`step-container ${(!isVisible) ? 'step-container_hidden':''}`}>
       {
         !hideContainerHeadings &&
         <>

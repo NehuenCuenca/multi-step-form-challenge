@@ -97,6 +97,7 @@
     transition: opacity .25s ease;
     opacity: 1;
     grid-area: error-msg;
+    justify-self: end;
     color: var(--StrawberryRed);
     font: normal normal 700 1rem 'UbuntuBold', sans-serif;
 }
