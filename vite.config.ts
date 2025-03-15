@@ -18,10 +18,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
-    // Add other configuration as needed
     browser: {
       enabled: true,
-      // at least one instance is required
       instances: [
         { browser: 'edge' },
       ],
