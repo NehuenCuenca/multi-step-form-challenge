@@ -11,6 +11,9 @@ const AddonsList = ({ selectedPeriod, toggleCheckAddon }: AddonsListProps) => {
     const handleClickAddon = (event: React.ChangeEvent<HTMLInputElement>) => { 
         const addonIdx = Number(event.currentTarget.getAttribute('data-addon-idx'))
         const clickedAddon = addons[addonIdx]
+        
+        event.currentTarget.parentElement?.classList.toggle('addon-item_checked')
+
         return (event.currentTarget.checked) 
                     ? toggleCheckAddon(clickedAddon, false)
                     : toggleCheckAddon(clickedAddon, true)

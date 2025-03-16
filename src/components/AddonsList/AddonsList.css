@@ -15,18 +15,17 @@
     transition: border .25s ease,
                 background-color .25s ease;
 }
-.addon-item:has(:checked), .addon-item:hover{
+.addon-item:has(:checked), .addon-item_checked, .addon-item:hover{
     border: 1px solid var(--PurplishBlue);
     background-color: var(--Magnolia);
-    
 }
+
 .addon-item__checkbox{
     accent-color: var(--PurplishBlue);
     width: 1.5rem;
     height: 1.5rem;
     border: 1px solid black;
     cursor: pointer;
-
 }
 
 .text-container{}
