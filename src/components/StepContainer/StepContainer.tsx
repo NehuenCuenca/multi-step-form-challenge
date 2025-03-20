@@ -6,7 +6,8 @@ interface StepContainerProps{
   containerTitle: string;
   containerSubTitle: string;
   isVisible: boolean;
-  hideContainerHeadings?: boolean
+  hideContainerHeadings?: boolean;
+  onClick?: () => void;
 }
 
 const StepContainer = ({children, containerTitle, containerSubTitle, isVisible, hideContainerHeadings}: StepContainerProps) => {
