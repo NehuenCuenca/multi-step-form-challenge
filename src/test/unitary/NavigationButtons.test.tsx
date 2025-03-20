@@ -2,7 +2,7 @@ import { queryByRole, screen } from "@testing-library/react";
 import { userEvent } from "@vitest/browser/context";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { render } from "vitest-browser-react";
-import NavigationButtons from "./NavigationButtons";
+import NavigationButtons from "@components/NavigationButtons/NavigationButtons";
 
 describe("Navigation buttons component tests", () => {
   const mockNewNavigation = vi.fn( (step: number) => console.log(step) );

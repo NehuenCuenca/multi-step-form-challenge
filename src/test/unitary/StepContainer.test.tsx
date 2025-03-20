@@ -3,7 +3,7 @@ import { PointerEventsCheckLevel } from "@testing-library/user-event"
 import { userEvent } from "@vitest/browser/context"
 import { describe, expect, test, vi } from "vitest"
 import { render } from "vitest-browser-react"
-import StepContainer from "./StepContainer"
+import StepContainer from "@components/StepContainer/StepContainer"
 
 describe('Step container component unitary tests', () => {
   test('Should hide container headings', () => { 

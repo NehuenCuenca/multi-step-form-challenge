@@ -5,7 +5,7 @@
 
 import { describe, expect, test, vi } from "vitest";
 import { render } from "vitest-browser-react";
-import AddonsList from "./AddonsList";
+import AddonsList from "@components/AddonsList/AddonsList";
 import { Period } from "@ownTypes/secondStep.types";
 import { Addon } from "@ownTypes/thirdStep.types";
 import { addons } from "@data/mockAddons";
@@ -41,7 +41,7 @@ describe("Navigation buttons component tests", () => {
     test('Ensure addon-checkbox function of button is called when un/checked', async() => { 
         render(<AddonsList selectedPeriod={Period.yearly} toggleCheckAddon={mockToggleCheckAddon}/>)
 
-        const [firstAddonCheckbox, ...restOfAddonsCheckboxes] = screen.getAllByRole("checkbox");
+        const [firstAddonCheckbox] = screen.getAllByRole("checkbox");
         await userEvent.click(firstAddonCheckbox)
         expect(mockToggleCheckAddon).toHaveBeenCalled()
     })
@@ -49,7 +49,7 @@ describe("Navigation buttons component tests", () => {
     test('Validate checked class of an addon-item', async() => { 
         render(<AddonsList selectedPeriod={Period.yearly} toggleCheckAddon={mockToggleCheckAddon}/>)
 
-        const [firstAddonCheckbox, ...restOfAddonsCheckboxes] = screen.getAllByRole("checkbox");
+        const [firstAddonCheckbox] = screen.getAllByRole("checkbox");
         
         await userEvent.click(firstAddonCheckbox) // check
         expect( firstAddonCheckbox.parentElement?.classList.contains('addon-item_checked') ).toBeTruthy();
