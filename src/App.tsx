@@ -61,11 +61,17 @@ function App() {
   // Function with proper typing
   const getFormData = (form: HTMLFormElement): personalInfoForm => {
     const formData = new FormData(form);
-    const object = Object.fromEntries(formData) as Record<string, FormDataEntryValue>;
+    const object = Object.fromEntries(formData);
     
-    // Type assertion to ensure the object matches our interface
-    return object as personalInfoForm;
-  }
+    // Create a properly typed object with the expected properties
+    const typedObject: personalInfoForm = {
+      FullName: (object.FullName as FormDataEntryValue)?.toString() || '',
+      EmailAddress: (object.EmailAddress as FormDataEntryValue)?.toString() || '',
+      PhoneNumber: (object.PhoneNumber as FormDataEntryValue)?.toString() || '',
+    };
+    
+    return typedObject;
+  };
 
   const handleNavigationForm = (amount: number) => {
     const wantsToContinue = amount > 0
@@ -80,6 +86,8 @@ function App() {
       }
 
       if(currentStep === 1 && selectedPlan) {
+        console.log({personalInfoFormValues});
+
         const planPrice = (selectedPeriod === Period.monthly) 
                               ? selectedPlan.monthlyPrice
                               : selectedPlan.yearlyPrice
